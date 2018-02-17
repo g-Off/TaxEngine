@@ -1,0 +1,51 @@
+{
+  "currency" : {
+    "code" : "USD",
+    "minorUnits" : 2
+  },
+  "lineItems" : [
+    {
+      "key" : "item",
+      "quantity" : 1,
+      "unitPrice" : 1
+    }
+  ],
+  "location" : {
+    "city" : "",
+    "countryCode" : "US",
+    "countryName" : "United States",
+    "county" : "",
+    "postalCode" : "",
+    "provinceCode" : "MA",
+    "provinceName" : "Massachusetts"
+  },
+  "results" : {
+    "currency" : {
+      "code" : "USD",
+      "minorUnits" : 2
+    },
+    "fragments" : [
+
+    ],
+    "taxLines" : [
+
+    ]
+  },
+  "rules" : [
+    {
+      "exemptItems" : [
+        "item"
+      ],
+      "key" : "rule:builtin:luxury"
+    }
+  ],
+  "taxes" : [
+    {
+      "key" : "tax:state",
+      "rate" : "0.1",
+      "type" : "normal",
+      "zone" : "province"
+    }
+  ],
+  "taxesIncluded" : false
+}
