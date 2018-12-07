@@ -42,9 +42,9 @@ public struct TaxRate: Codable {
 	}
 	
 	public let key: Key
-	public var rate: Decimal
-	public var type: ApplicationType
-	public var zone: Zone
+	public let rate: Decimal
+	public let type: ApplicationType
+	public let zone: Zone
 	
 	private enum CodingKeys: String, CodingKey {
 		case key

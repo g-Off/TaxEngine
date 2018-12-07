@@ -14,7 +14,7 @@ struct LuxuryTaxRule: TaxRule, Codable {
 		"MA": Decimal(175),
 		"RI": Decimal(250)
 	]
-	private var exemptItems: Set<ItemKey> = []
+	private let exemptItems: Set<ItemKey>
 	
 	private enum CodingKeys: String, CodingKey {
 		case exemptItems
