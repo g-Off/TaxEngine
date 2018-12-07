@@ -10,19 +10,17 @@ import Foundation
 
 public struct Taxes: Codable {
 	public let currency: Currency
-	public let fragments: [TaxLineFragment]
 	/// All of the tax lines on a per line item basis. Each tax line is rounded and adjusted for the currency.
 	public let taxLines: [TaxLine]
 	
 	public init(currency: Currency, taxes: [TaxRate], taxesIncluded: Bool = false, taxableItems: [TaxableItem], location: Location, rules: [TaxRule] = []) {
 		self.currency = currency
 		let fragments = Taxes.calculateFragments(currency: currency, taxes: taxes, taxesIncluded: taxesIncluded, taxableItems: taxableItems, location: location, rules: rules)
-		self.fragments = fragments
 		self.taxLines = Taxes.computeTaxLines(from: fragments, currency: currency)
 	}
 	
 	/// Total tax by tax rate.
-	var collectedTaxes: [TaxRate.Key: Decimal] {
+	public var collectedTaxes: [TaxRate.Key: Decimal] {
 		var collectedTaxes: [TaxRate.Key: Decimal] = [:]
 		taxLines.forEach { taxLine in
 			collectedTaxes[taxLine.tax, default: Decimal(0)] += taxLine.amount
@@ -30,7 +28,7 @@ public struct Taxes: Codable {
 		return collectedTaxes
 	}
 	
-	var itemizedTaxes: [ItemKey: [TaxLine]] {
+	public var itemizedTaxes: [ItemKey: [TaxLine]] {
 		var itemizedTaxes: [ItemKey: [TaxLine]] = [:]
 		taxLines.forEach { taxLine in
 			itemizedTaxes[taxLine.item, default: []].append(taxLine)
@@ -109,12 +107,9 @@ public struct Taxes: Codable {
 			}
 		}
 		
-		var fragmentAggregates: [TaxRate.Key: Decimal] {
-			var aggregates: [TaxRate.Key: Decimal] = [:]
-			fragments.forEach { (taxLine) in
-				aggregates[taxLine.tax, default: Decimal(0)] += taxLine.amount
-			}
-			return aggregates
+		var fragmentAggregates: [TaxRate.Key: Decimal] = [:]
+		fragments.forEach { (taxLine) in
+			fragmentAggregates[taxLine.tax, default: Decimal(0)] += taxLine.amount
 		}
 		
 		var taxLines: [TaxLine] = fragments.map { return TaxLine(item: $0.item, tax: $0.tax, amount: $0.amount) }
@@ -132,7 +127,7 @@ public struct Taxes: Codable {
 
 extension Taxes: Equatable {
 	public static func ==(lhs: Taxes, rhs: Taxes) -> Bool {
-		return lhs.currency == rhs.currency && lhs.fragments == rhs.fragments
+		return lhs.currency == rhs.currency && lhs.taxLines == rhs.taxLines
 	}
 }
 

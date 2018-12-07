@@ -10,7 +10,7 @@ import Foundation
 
 struct NewYorkClothingTaxRule: TaxRule, Codable {
 	static let key = TaxRuleKey("rule:builtin:newyork:clothing")
-	private var exemptItems: Set<ItemKey> = []
+	private let exemptItems: Set<ItemKey>
 	private let exemptCounties: Set<String> = [
 		"NEW YORK",
 		"BRONX",    // the bronx
