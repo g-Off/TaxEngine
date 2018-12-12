@@ -20,15 +20,15 @@ public struct DisabledTaxRule: TaxRule, Codable {
 		self.disabledItems = disabledItems
 	}
 	
-	public func applies(to lineItem: TaxableItem, location: Location, tax: TaxRate) -> Bool {
-		return self.tax == tax.key && disabledItems.contains(lineItem.key)
+	public func applies(to lineItem: TaxableItem, location: Location, taxRate: TaxRate) -> Bool {
+		return self.tax == taxRate.key && disabledItems.contains(lineItem.key)
 	}
 	
-	public func taxableAmount(for lineItem: TaxableItem, location: Location, tax: TaxRate) -> Decimal {
+	public func taxableAmount(for lineItem: TaxableItem, location: Location, taxRate: TaxRate) -> Decimal {
 		return 0
 	}
 	
-	public func taxRate(for lineItem: TaxableItem, location: Location, tax: TaxRate) -> Decimal {
+	public func taxRate(for lineItem: TaxableItem, location: Location, taxRate: TaxRate) -> Decimal {
 		return 0
 	}
 }

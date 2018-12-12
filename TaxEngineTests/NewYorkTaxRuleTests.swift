@@ -17,10 +17,10 @@ class NewYorkTaxRuleTests: XCTestCase {
 	private func taxesForLocation(_ location: Location) -> Taxes {
 		let taxes = Taxes(
 			currency: .USD,
-			taxes: [cityTax, countyTax, stateTax],
+			taxRates: [cityTax, countyTax, stateTax],
 			taxableItems: [Sale(key: "product", quantity: 1, unitPrice: 100)],
 			location: location,
-			rules: [NewYorkClothingTaxRule(exemptItems: ["product"])]
+			taxRules: [NewYorkClothingTaxRule(exemptItems: ["product"])]
 		)
 		return taxes
 	}
@@ -28,7 +28,7 @@ class NewYorkTaxRuleTests: XCTestCase {
 	func testNewYorkNoExemptions() {
 		let taxes = Taxes(
 			currency: .USD,
-			taxes: [cityTax, countyTax, stateTax],
+			taxRates: [cityTax, countyTax, stateTax],
 			taxableItems: [Sale(key: "product", quantity: 1, unitPrice: 100)],
 			location: .NewYork(zip: "11413", county: "QUEENS", city: "SPRINGFIELD GARDENS")
 		)

@@ -19,14 +19,14 @@ class DisabledTaxRuleTests: XCTestCase {
 			Sale(key: "item:2", quantity: 1, unitPrice: 1)
 		]
 		let rule = DisabledTaxRule(tax: gst.key, disabledItems: [federalTaxExemptItem.key])
-		let taxes = Taxes(currency: .CAD, taxes: [gst, pst], taxableItems: taxableItems, location: .Ottawa(), rules: [rule])
+		let taxes = Taxes(currency: .CAD, taxRates: [gst, pst], taxableItems: taxableItems, location: .Ottawa(), taxRules: [rule])
 		
 		let federalTaxExemptItemTaxLines = taxes.itemizedTaxes["item:1"]
 		XCTAssertEqual(federalTaxExemptItemTaxLines?.count, 1)
 		
 		let taxLine = taxes.itemizedTaxes["item:1"]?.first
-		XCTAssertEqual(taxLine?.tax, pst.key)
-		XCTAssertEqual(taxLine?.item, federalTaxExemptItem.key)
+		XCTAssertEqual(taxLine?.taxRateKey, pst.key)
+		XCTAssertEqual(taxLine?.itemKey, federalTaxExemptItem.key)
 		XCTAssertEqual(taxLine?.amount, 8)
 		
 		let testCase = TaxTestCase(currency: .CAD, location: .Ottawa(), taxesIncluded: false, taxes: [gst, pst], lineItems: taxableItems, rules: [rule])

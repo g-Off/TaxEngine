@@ -15,10 +15,10 @@ class LuxuryTaxRuleTests: XCTestCase {
 		let item = Sale(key: "item", quantity: 1, unitPrice: Decimal(1))
 		let taxes = Taxes(
 			currency: .USD,
-			taxes: [tax],
+			taxRates: [tax],
 			taxableItems: [item],
 			location: .Massachusetts(),
-			rules: [LuxuryTaxRule(exemptItems: [item.key])]
+			taxRules: [LuxuryTaxRule(exemptItems: [item.key])]
 		)
 		let x = TaxTestCase(currency: .USD, location: .Massachusetts(), taxesIncluded: false, taxes: [tax], lineItems: [item], rules: [LuxuryTaxRule(exemptItems: [item.key])])
 		add(try! attachment(from: x))
@@ -30,10 +30,10 @@ class LuxuryTaxRuleTests: XCTestCase {
 		let item = Sale(key: "item", quantity: 1, unitPrice: Decimal(200))
 		let taxes = Taxes(
 			currency: .USD,
-			taxes: [tax],
+			taxRates: [tax],
 			taxableItems: [item],
 			location: .Massachusetts(),
-			rules: [LuxuryTaxRule(exemptItems: [item.key])]
+			taxRules: [LuxuryTaxRule(exemptItems: [item.key])]
 		)
 		XCTAssertRate(taxes: taxes, rate: tax, amount: "2.5")
 	}
@@ -43,10 +43,10 @@ class LuxuryTaxRuleTests: XCTestCase {
 		let item = Sale(key: "item", quantity: 1, unitPrice: Decimal(200))
 		let taxes = Taxes(
 			currency: .USD,
-			taxes: [tax],
+			taxRates: [tax],
 			taxableItems: [item],
 			location: .Massachusetts(),
-			rules: [LuxuryTaxRule(exemptItems: ["different item"])]
+			taxRules: [LuxuryTaxRule(exemptItems: ["different item"])]
 		)
 		XCTAssertRate(taxes: taxes, rate: tax, amount: "20")
 	}
@@ -56,10 +56,10 @@ class LuxuryTaxRuleTests: XCTestCase {
 		let item = Sale(key: "item", quantity: 1, unitPrice: Decimal(200))
 		let taxes = Taxes(
 			currency: .USD,
-			taxes: [tax],
+			taxRates: [tax],
 			taxableItems: [item],
 			location: .NewYork(zip: "", county: "", city: ""),
-			rules: [LuxuryTaxRule(exemptItems: ["different item"])]
+			taxRules: [LuxuryTaxRule(exemptItems: ["different item"])]
 		)
 		XCTAssertRate(taxes: taxes, rate: tax, amount: "20")
 	}
@@ -69,10 +69,10 @@ class LuxuryTaxRuleTests: XCTestCase {
 		let item = Sale(key: "item", quantity: 1, unitPrice: Decimal(200))
 		let taxes = Taxes(
 			currency: .USD,
-			taxes: [tax],
+			taxRates: [tax],
 			taxableItems: [item],
 			location: .London(),
-			rules: [LuxuryTaxRule(exemptItems: [item.key])]
+			taxRules: [LuxuryTaxRule(exemptItems: [item.key])]
 		)
 		XCTAssertRate(taxes: taxes, rate: tax, amount: "20")
 	}
@@ -82,10 +82,10 @@ class LuxuryTaxRuleTests: XCTestCase {
 		let item = Sale(key: "item", quantity: 1, unitPrice: Decimal(200))
 		let taxes = Taxes(
 			currency: .USD,
-			taxes: [tax],
+			taxRates: [tax],
 			taxableItems: [item],
 			location: .Massachusetts(),
-			rules: [LuxuryTaxRule(exemptItems: [item.key])]
+			taxRules: [LuxuryTaxRule(exemptItems: [item.key])]
 		)
 		XCTAssertRate(taxes: taxes, rate: tax, amount: "20")
 	}

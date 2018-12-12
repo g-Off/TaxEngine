@@ -107,7 +107,7 @@ struct TaxTestCase: Codable {
 		self.taxesIncluded = taxesIncluded
 		self.taxes = taxes
 		self.rules = rules
-		self.results = Taxes(currency: currency, taxes: taxes, taxesIncluded: taxesIncluded, taxableItems: lineItems, location: location, rules: rules)
+		self.results = Taxes(currency: currency, taxRates: taxes, taxesIncluded: taxesIncluded, taxableItems: lineItems, location: location, taxRules: rules)
 	}
 	
 	init(from decoder: Decoder) throws {

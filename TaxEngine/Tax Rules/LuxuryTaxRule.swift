@@ -24,14 +24,14 @@ struct LuxuryTaxRule: TaxRule, Codable {
         self.exemptItems = exemptItems
     }
 	
-	func taxableAmount(for lineItem: TaxableItem, location: Location, tax: TaxRate) -> Decimal {
+	func taxableAmount(for lineItem: TaxableItem, location: Location, taxRate: TaxRate) -> Decimal {
 		guard let threshold = thresholds[location.provinceCode] else { return lineItem.taxableAmount }
 		return max(lineItem.taxableAmount - (threshold * lineItem.quantity), 0)
 	}
 	
-	func applies(to lineItem: TaxableItem, location: Location, tax: TaxRate) -> Bool {
+	func applies(to lineItem: TaxableItem, location: Location, taxRate: TaxRate) -> Bool {
 		guard location.countryCode == "US" else { return false }
-		guard tax.zone == .province else { return false }
+		guard taxRate.zone == .province else { return false }
 		guard let _ = thresholds[location.provinceCode] else { return false }
 		guard exemptItems.contains(lineItem.key) else { return false }
 		return true

@@ -23,8 +23,13 @@ public protocol TaxableItem {
 /// Concrete type that wraps a unique identifier for a `TaxableItem`
 public struct ItemKey: RawRepresentable, Codable {
 	public private(set) var rawValue: String
+	
 	public init(rawValue: String) {
 		self.rawValue = rawValue
+	}
+	
+	public init(_ rawValue: String) {
+		self.init(rawValue: rawValue)
 	}
 }
 

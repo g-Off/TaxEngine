@@ -43,21 +43,21 @@ public protocol TaxRule {
 	/// Returns whether this rule applies to the given item, at the given location, for the tax rate.
 	///
 	/// - Returns: `true` if this rule is applied to this `TaxableItem` and `TaxRate` combination, `false` otherwise.
-	func applies(to lineItem: TaxableItem, location: Location, tax: TaxRate) -> Bool
+	func applies(to taxableItem: TaxableItem, location: Location, taxRate: TaxRate) -> Bool
 	
 	/// Returns the amount from the given item that should be taxed. This allows for only taxing a portion of a line items amount.
-	func taxableAmount(for lineItem: TaxableItem, location: Location, tax: TaxRate) -> Decimal
+	func taxableAmount(for taxableItem: TaxableItem, location: Location, taxRate: TaxRate) -> Decimal
 	
 	/// Returns the tax rate to be used. This allows for adjusting of the given `TaxRate`.
-	func taxRate(for lineItem: TaxableItem, location: Location, tax: TaxRate) -> Decimal
+	func taxRate(for lineItem: TaxableItem, location: Location, taxRate: TaxRate) -> Decimal
 }
 
 extension TaxRule {
-	public func taxableAmount(for lineItem: TaxableItem, location: Location, tax: TaxRate) -> Decimal {
+	public func taxableAmount(for lineItem: TaxableItem, location: Location, taxRate: TaxRate) -> Decimal {
 		return lineItem.taxableAmount
 	}
 	
-	public func taxRate(for lineItem: TaxableItem, location: Location, tax: TaxRate) -> Decimal {
-		return tax.rate
+	public func taxRate(for lineItem: TaxableItem, location: Location, taxRate: TaxRate) -> Decimal {
+		return taxRate.rate
 	}
 }
